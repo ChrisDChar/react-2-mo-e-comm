@@ -159,8 +159,8 @@ function Header() {
 
           <div className="flex items-center gap-6 text-white">
             <div className="relative cursor-pointer">
-              <img src={Cart} alt="cart" className="w-5 h-5" />
-              <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center">2</span>
+              <img src={Cart} alt="cart" className="w-6 h-6" />
+              <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs w-4 h-4 rounded-full flex items-center justify-center">0</span>
             </div>
 
             <img src={FavouritePageIcon} alt="favourite" className="w-5 h-5 cursor-pointer hover:opacity-80" />
