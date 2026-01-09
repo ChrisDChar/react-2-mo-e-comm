@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
       </main>
 
       <footer className="bg-gray-100 text-center py-4 mt-auto">
-        © 2026 My Website. All rights reserved.
+        Made in Mars.
       </footer>
     </div>
   );
