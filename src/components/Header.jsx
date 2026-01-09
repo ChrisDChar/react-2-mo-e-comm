@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import Twitter from "../assets/HomeImages/twitter.png";
-import Facebook from "../assets/HomeImages/facebook.png";
-import Pinterest from "../assets/HomeImages/pinterest.png";
-import Reddit from "../assets/HomeImages/reddit.png";
-import Youtube from "../assets/HomeImages/youtube.png";
+import Twitter from "../assets/HomeImages/Twitter.png";
+import Facebook from "../assets/HomeImages/Facebook.png";
+import Pinterest from "../assets/HomeImages/Pinterest.png";
+import Reddit from "../assets/HomeImages/Reddit.png";
+import Youtube from "../assets/HomeImages/Youtube.png";
 import Instagram from "../assets/HomeImages/Instagram.png";
 import FavouritePageIcon from "../assets/HomeImages/FavouritePageIcon.png";
-import Cart from "../assets/HomeImages/cart.png";
-import User from "../assets/HomeImages/user.png";
+import Cart from "../assets/HomeImages/Cart.png";
+import User from "../assets/HomeImages/User.png";
 import Search from "../assets/HomeImages/SearchIcon.png";
 import DropDown from "../assets/HomeImages/dropdown.png";
 import Phone from "../assets/HomeImages/Phone.png";

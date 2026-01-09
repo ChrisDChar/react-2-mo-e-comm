@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"; // <- import Link at the top
+import { Link } from "react-router-dom";
 import HeartIcon from "../assets/CardImages/Heart.png";
 import EyeIcon from "../assets/CardImages/Eye.png";
 import AddToCart from "../assets/CardImages/AddToCart.png";
