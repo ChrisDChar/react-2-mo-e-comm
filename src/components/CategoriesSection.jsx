@@ -4,6 +4,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import useFetch from "../hooks/useFetch";
+import "../css/CategoriesSection.css";
 
 function CategoriesSection() {
   const { data, loading, error } = useFetch("products/categories");
@@ -42,8 +43,11 @@ function CategoriesSection() {
         >
           {data.map((category, index) => (
             <SwiperSlide key={index} className="flex justify-center">
-              <div className="w-[205px] h-[160px] border border-gray-200 flex items-center justify-center bg-white rounded-lg cursor-pointer hover:shadow-lg transition-shadow">
-                <span className="text-center text-lg font-medium text-gray-900">
+              <div className="relative w-[205px] h-[160px] border border-gray-200 flex items-center justify-center bg-white rounded-lg cursor-pointer overflow-hidden group">
+                
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-[#FA8232] rounded-tr-full rounded-br-full transform scale-100 origin-bottom-left circle-hover"></div>
+                
+                <span className="relative text-center text-lg font-medium text-gray-900 group-hover:text-white transition-colors duration-500">
                   {category.name}
                 </span>
               </div>

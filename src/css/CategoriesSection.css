@@ -1,0 +1,12 @@
+.circle-hover {
+  transition: transform 3s ease-out; 
+}
+
+.group:hover .circle-hover {
+  transform: scale(20);
+}
+
+.group:not(:hover) .circle-hover {
+  transition: transform 0.5s ease-in;
+  transform: scale(1);
+}
