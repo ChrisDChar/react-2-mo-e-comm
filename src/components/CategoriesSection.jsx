@@ -5,6 +5,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import useFetch from "../hooks/useFetch";
 import "../css/CategoriesSection.css";
+import ArrowLeft from "../assets/HomeImages/ArrowLeft.png";
+import ArrowRight from "../assets/HomeImages/ArrowRight.png";
 
 function CategoriesSection() {
   const { data, loading, error } = useFetch("products/categories");
@@ -54,12 +56,13 @@ function CategoriesSection() {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="swiper-button-prev-custom absolute top-1/2 -left-5 z-20 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md cursor-pointer hover:bg-[#FA8232] hover:text-white transition-colors">
-          <span className="text-xl font-bold">&#10094;</span>
+        <div className="swiper-button-prev-custom absolute top-1/2 -left-5 z-20 transform -translate-y-1/2 w-10 h-10 bg-[#FA8232] rounded-full flex items-center justify-center shadow-md cursor-pointer hover:bg-[#e06a00] transition-colors">
+          <img src={ArrowLeft} alt="Previous" className="w-5 h-5" />
         </div>
-        <div className="swiper-button-next-custom absolute top-1/2 -right-5 z-20 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md cursor-pointer hover:bg-[#FA8232] hover:text-white transition-colors">
-          <span className="text-xl font-bold">&#10095;</span>
+        <div className="swiper-button-next-custom absolute top-1/2 -right-5 z-20 transform -translate-y-1/2 w-10 h-10 bg-[#FA8232] rounded-full flex items-center justify-center shadow-md cursor-pointer hover:bg-[#e06a00] transition-colors">
+          <img src={ArrowRight} alt="Next" className="w-5 h-5" />
         </div>
+
       </div>
     </section>
   );
