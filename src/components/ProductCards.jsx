@@ -46,7 +46,7 @@ function ProductCards() {
   if (loading || error || products.length < 9) return null;
 
   return (
-    <section className="max-w-[1330px] mx-auto px-4 py-12">
+    <section className="max-w-7xl mx-auto px-4 py-12">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
           <h2 className="text-[#191C1F] font-semibold text-[24px] leading-[32px]">
@@ -63,10 +63,12 @@ function ProductCards() {
         </button>
       </div>
 
-      <div className="grid grid-cols-[330px_1fr] gap-0">
-        <BigProductCard product={products[0]} />
+      <div className="flex gap-0">
+        <div className="flex-shrink-0">
+          <BigProductCard product={products[0]} />
+        </div>
 
-        <div className="grid grid-cols-4 gap-0">
+        <div className="grid grid-cols-4 gap-0 flex-1">
           {products.slice(1).map((product) => (
             <SmallProductCard key={product.id} product={product} />
           ))}

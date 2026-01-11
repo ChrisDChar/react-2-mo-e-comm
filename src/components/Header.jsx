@@ -163,7 +163,13 @@ function Header() {
               <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs w-4 h-4 rounded-full flex items-center justify-center">0</span>
             </div>
 
-            <img src={FavouritePageIcon} alt="favourite" className="w-5 h-5 cursor-pointer hover:opacity-80" />
+            <Link to="/favourite">
+            <img
+              src={FavouritePageIcon}
+              alt="favourite"
+              className="w-5 h-5 cursor-pointer hover:opacity-80"/>
+            </Link>
+
             <img src={User} alt="user" className="w-5 h-5 cursor-pointer hover:opacity-80" />
           </div>
         </div>
