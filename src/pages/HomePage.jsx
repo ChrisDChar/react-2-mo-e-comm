@@ -4,6 +4,7 @@ import ProductCards from "../components/ProductCards";
 import CategoriesSection from "../components/CategoriesSection";
 import useFetch from "../hooks/useFetch";
 import FeaturedProducts from "../components/FeaturedProducts";
+import PromoCards from "../components/PromoCards";
 
 function HomePage() {
   const { data: categoryListData, loading, error } = useFetch("products/category-list");
@@ -27,6 +28,7 @@ function HomePage() {
       <ProductCards />
       <CategoriesSection categories={categories} />
       <FeaturedProducts />
+      <PromoCards />
     </main>
   );
 }
