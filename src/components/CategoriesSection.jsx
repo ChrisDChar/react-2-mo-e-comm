@@ -16,10 +16,7 @@ function CategoriesSection() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 relative">
-      <h1
-        className="text-center text-[#191C1F] font-semibold text-[32px] leading-[40px] mb-8"
-        style={{ fontFamily: "Public Sans" }}
-      >
+      <h1 className="text-center text-[#191C1F] font-semibold text-[32px] leading-[40px] mb-8">
         Shop with Categories
       </h1>
       <div className="relative">
