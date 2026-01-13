@@ -1,19 +1,18 @@
-// components/Layout.jsx
 import React from "react";
+import { useScrollRestoration } from "../hooks/useScrollRestoration";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
+  useScrollRestoration();
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
-
-      <main className="flex-1 container mx-auto px-4 py-6">
+      <main className="flex-1 pt-[140px]">
         {children}
       </main>
-
-      <footer className="bg-gray-100 text-center py-4 mt-auto">
-        Made in Mars.
-      </footer>
+      <Footer />
     </div>
   );
 };

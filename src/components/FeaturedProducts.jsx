@@ -1,13 +1,17 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaCartPlus } from "react-icons/fa";
+import { BsFillCartDashFill } from "react-icons/bs";
+import { useCart } from "../context/CartContext";
 import useFetch from "../hooks/useFetch";
 import FeaturedImage from "../assets/FeaturedProductsImages/Offer.jpg";
 import HeartIcon from "../assets/CardImages/Heart.png";
 import EyeIcon from "../assets/CardImages/Eye.png";
-import AddToCart from "../assets/CardImages/AddToCart.png";
 
 function FeaturedProducts() {
   const { data, loading, error } = useFetch("products");
+  const { cartItems, addToCart, removeFromCart } = useCart();
+
   const [activeCategory, setActiveCategory] = useState("all");
   const [favourites, setFavourites] = useState([]);
 
@@ -30,13 +34,9 @@ function FeaturedProducts() {
   const featured = filtered.slice(0, 8);
 
   const toggleFavourite = (id) => {
-    let updated;
-
-    if (favourites.includes(id)) {
-      updated = favourites.filter((item) => item !== id);
-    } else {
-      updated = [...favourites, id];
-    }
+    const updated = favourites.includes(id)
+      ? favourites.filter((item) => item !== id)
+      : [...favourites, id];
 
     setFavourites(updated);
     localStorage.setItem("favourites", JSON.stringify(updated));
@@ -51,13 +51,23 @@ function FeaturedProducts() {
               Computer & Accessories
             </span>
             <h3 className="text-3xl font-bold mt-2">32% Discount</h3>
-            <p className="text-sm text-gray-700 mt-2">For all electronics products</p>
+            <p className="text-sm text-gray-700 mt-2">
+              For all electronics products
+            </p>
             <p className="text-xs text-gray-600 mt-4">Offers ends in:</p>
-            <div className="bg-white text-xs font-semibold px-3 py-1 mt-1">ENDS OF CHRISTMAS</div>
-            <button className="mt-5 bg-orange-500 text-white px-6 py-2 text-sm cursor-pointer">Shop Now</button>
+            <div className="bg-white text-xs font-semibold px-3 py-1 mt-1">
+              ENDS OF CHRISTMAS
+            </div>
+            <button className="mt-5 bg-orange-500 text-white px-6 py-2 text-sm cursor-pointer">
+              Shop Now
+            </button>
           </div>
           <div className="w-full flex items-center justify-center flex-shrink-0 mt-4">
-            <img src={FeaturedImage} alt="" className="w-full h-auto object-contain" />
+            <img
+              src={FeaturedImage}
+              alt=""
+              className="w-full h-auto object-contain"
+            />
           </div>
         </div>
 
@@ -93,13 +103,17 @@ function FeaturedProducts() {
                 product.price -
                 (product.price * product.discountPercentage) / 100
               ).toFixed(2);
+
               const rating = Math.round(product.rating);
               const isFav = favourites.includes(product.id);
+              const isInCart = cartItems.some(
+                (item) => item.id === product.id
+              );
 
               return (
                 <div
                   key={product.id}
-                  className="border border-gray-200 flex flex-col relative group overflow-hidden cursor-pointer h-full"
+                  className="border border-[#E4E7E9] flex flex-col relative group overflow-hidden h-full bg-white"
                 >
                   <img
                     src={product.thumbnail}
@@ -117,8 +131,19 @@ function FeaturedProducts() {
                       <img src={HeartIcon} className="w-4 h-4" />
                     </button>
 
-                    <button className="w-7 h-7 bg-white rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-[#FA8232]">
-                      <img src={AddToCart} className="w-4 h-4" />
+                    <button
+                      onClick={() =>
+                        isInCart
+                          ? removeFromCart(product.id)
+                          : addToCart(product)
+                      }
+                      className="w-7 h-7 bg-white rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-[#FA8232]"
+                    >
+                      {isInCart ? (
+                        <BsFillCartDashFill size={14} />
+                      ) : (
+                        <FaCartPlus size={14} />
+                      )}
                     </button>
 
                     <Link to={`/single/${product.id}`} className="w-7 h-7">
@@ -135,11 +160,17 @@ function FeaturedProducts() {
                       ))}
                     </div>
 
-                    <h4 className="text-sm font-medium text-gray-900 truncate">{product.title}</h4>
+                    <h4 className="text-sm font-medium text-gray-900 truncate">
+                      {product.title}
+                    </h4>
 
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-[#ADB7BC] line-through">${product.price}</span>
-                      <span className="text-sm font-semibold text-[#2DA5F3]">${discounted}</span>
+                      <span className="text-xs text-[#ADB7BC] line-through">
+                        ${product.price}
+                      </span>
+                      <span className="text-sm font-semibold text-[#2DA5F3]">
+                        ${discounted}
+                      </span>
                     </div>
                   </div>
                 </div>
