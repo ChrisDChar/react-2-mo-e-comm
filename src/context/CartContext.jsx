@@ -15,7 +15,6 @@ export function CartProvider({ children }) {
   const addToCart = (product) => {
     setCartItems((prev) => {
       const existing = prev.find((item) => item.id === product.id);
-
       if (existing) {
         return prev.map((item) =>
           item.id === product.id
@@ -23,7 +22,6 @@ export function CartProvider({ children }) {
             : item
         );
       }
-
       return [...prev, { ...product, quantity: 1 }];
     });
   };
@@ -54,10 +52,7 @@ export function CartProvider({ children }) {
     );
   };
 
-  const cartCount = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  const cartCount = cartItems.length;
 
   const cartSubtotal = cartItems.reduce((total, item) => {
     const discountedPrice =

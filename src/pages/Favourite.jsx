@@ -21,7 +21,7 @@ function Favourite() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 pt-[140px] py-10">
+    <section className="max-w-7xl mx-auto px-4 py-10">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold">Wishlist</h2>
       </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
 import useFetch from "../hooks/useFetch";
+import { useCart } from "../context/CartContext";
 import AddToCartIcon from "../assets/HomeImages/Cart.png";
 import FavouriteIcon from "../assets/CardImages/Heart.png";
 import CompareIcon from "../assets/HomeImages/Compare.png";
@@ -11,16 +12,17 @@ import ArrowRight from "../assets/HomeImages/ArrowRight.png";
 function SinglePage() {
   const { id } = useParams();
   const { data: product, loading, error } = useFetch(`products/${id}`);
+  const { cartItems, addToCart, increaseQty, decreaseQty } = useCart();
+
+  const cartItem = cartItems.find((item) => item.id === Number(id));
+  const quantity = cartItem ? cartItem.quantity : 1;
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
     if (product?.images?.length) setCurrentIndex(0);
   }, [product]);
-
-  const incrementQty = () => setQuantity((prev) => prev + 1);
-  const decrementQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
   const handlePrev = () => {
     if (!product || product.images.length <= 1) return;
@@ -48,8 +50,11 @@ function SinglePage() {
   if (error) return <div className="text-center py-20 text-red-500">Error loading product.</div>;
   if (!product) return null;
 
+  const discountedPrice =
+    product.price - (product.price * product.discountPercentage) / 100;
+
   return (
-    <section className="max-w-7xl mx-auto px-4 pt-34 py-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+    <section className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-12">
       <div>
         <div className="relative w-full h-[400px] border border-gray-200 flex items-center justify-center overflow-hidden rounded-lg mb-4">
           <img
@@ -126,71 +131,53 @@ function SinglePage() {
         </div>
 
         <div className="flex items-center gap-4 text-lg">
-          <span className="text-blue-600 font-semibold">${product.price}</span>
-          <span className="line-through text-gray-400">${product.originalPrice || 0}</span>
+          <span className="text-blue-600 font-semibold">
+            ${discountedPrice.toFixed(2)}
+          </span>
+          <span className="line-through text-gray-400">
+            ${product.price}
+          </span>
           <span className="bg-yellow-200 text-black text-sm font-medium px-2 py-1 rounded">
-            {product.discountPercentage || 0}% OFF
+            {product.discountPercentage}% OFF
           </span>
         </div>
 
-        <div className="flex flex-col gap-4">
-          {product.colors && (
-            <div className="flex items-center gap-2">
-              <span className="font-medium w-16">Color:</span>
-              {product.colors.map((color, idx) => (
-                <div
-                  key={idx}
-                  className="w-6 h-6 rounded-full border cursor-pointer"
-                  style={{ backgroundColor: color }}
-                />
+        {product.storages && (
+          <div className="flex items-center gap-2">
+            <span className="font-medium w-16">Storage:</span>
+            <select className="border px-2 py-1 rounded cursor-pointer">
+              {product.storages.map((stor, idx) => (
+                <option key={idx}>{stor}</option>
               ))}
-            </div>
-          )}
-          {product.sizes && (
-            <div className="flex items-center gap-2">
-              <span className="font-medium w-16">Size:</span>
-              <select className="border px-2 py-1 rounded cursor-pointer">
-                {product.sizes.map((size, idx) => (
-                  <option key={idx}>{size}</option>
-                ))}
-              </select>
-            </div>
-          )}
-          {product.memories && (
-            <div className="flex items-center gap-2">
-              <span className="font-medium w-16">Memory:</span>
-              <select className="border px-2 py-1 rounded cursor-pointer">
-                {product.memories.map((mem, idx) => (
-                  <option key={idx}>{mem}</option>
-                ))}
-              </select>
-            </div>
-          )}
-          {product.storages && (
-            <div className="flex items-center gap-2">
-              <span className="font-medium w-16">Storage:</span>
-              <select className="border px-2 py-1 rounded cursor-pointer">
-                {product.storages.map((stor, idx) => (
-                  <option key={idx}>{stor}</option>
-                ))}
-              </select>
-            </div>
-          )}
+            </select>
+          </div>
+        )}
+
+        <div className="flex items-center gap-4 mt-4 h-12">
+          {cartItem ? (
+            <div className="flex-1 flex h-full rounded overflow-hidden">
+              <button className="flex-1 bg-[#FA8232] text-white font-semibold text-lg flex items-center justify-center cursor-pointer" onClick={() => decreaseQty(product.id)}>
+                −
+              </button>
+              <span className="flex-1 text-center bg-gray-100 text-gray-800 font-semibold text-lg flex items-center justify-center">
+                {cartItem.quantity}
+              </span>
+              <button className="flex-1 bg-[#FA8232] text-white font-semibold text-lg flex items-center justify-center cursor-pointer" onClick={() => increaseQty(product.id)}>
+                +
+              </button>
+              </div>
+              ) : (
+              <button onClick={() => addToCart(product)} className="flex-1 bg-[#FA8232] text-white rounded h-full flex items-center justify-center gap-2 font-semibold hover:bg-orange-600 transition-colors cursor-pointer">
+                <img src={AddToCartIcon} alt="Add to Cart" className="w-5 h-5" />
+                ADD TO CART
+              </button>
+            )}
+            
+            <button className="flex-1 bg-white border border-[#FA8232] rounded h-full text-[#FA8232] font-semibold flex items-center justify-center hover:bg-[#FFF5EB] transition-colors cursor-pointer">
+              BUY NOW
+            </button>
         </div>
 
-        <div className="flex items-center gap-4 mt-4">
-          <div className="flex items-center border rounded overflow-hidden">
-            <button className="px-3 py-1 cursor-pointer" onClick={decrementQty}>-</button>
-            <span className="px-4 py-1">{quantity}</span>
-            <button className="px-3 py-1 cursor-pointer" onClick={incrementQty}>+</button>
-          </div>
-          <button className="flex-1 bg-orange-500 text-white px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-orange-600 cursor-pointer">
-            <img src={AddToCartIcon} alt="Add to Cart" className="w-5 h-5" /> ADD TO CART
-          </button>
-          <button className="bg-white border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 cursor-pointer">
-            BUY NOW
-          </button>
-        </div>
 
         <div className="flex items-center gap-4 text-sm text-gray-600">
           <div className="flex items-center gap-1 cursor-pointer">
