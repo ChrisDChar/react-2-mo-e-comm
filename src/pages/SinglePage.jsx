@@ -92,7 +92,7 @@ function SinglePage() {
                   alt={`thumb-${idx}`}
                   className={`w-20 h-20 object-contain border cursor-pointer rounded flex-shrink-0 transition-transform duration-300 ${
                     idx === currentIndex
-                      ? "border-orange-500 scale-105"
+                      ? "border-orange-500 scale-100"
                       : "border-gray-200 scale-100"
                   }`}
                   onClick={() => setCurrentIndex(idx)}
