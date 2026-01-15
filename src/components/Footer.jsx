@@ -40,10 +40,11 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#191C1F] text-white">
+    <footer className="bg-[#191C1F] text-white border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
-          <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-10">
+          
+          <div className="col-span-1 sm:col-span-2 lg:col-span-1 2xl:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <img
                 src={Logo}
@@ -54,43 +55,42 @@ const Footer = () => {
             </div>
 
             <p className="text-sm text-gray-400 mb-1">Customer Support:</p>
-            <p className="font-semibold mb-3">(629) 555-0129</p>
+            <p className="font-semibold mb-3 text-lg text-white">(629) 555-0129</p>
 
             <p className="text-sm text-gray-400 leading-relaxed">
-              4517 Washington Ave.
-              <br />
+              4517 Washington Ave. <br />
               Manchester, Kentucky 39495
             </p>
 
-            <p className="mt-2 underline cursor-pointer text-sm">
+            <p className="mt-2 underline cursor-pointer text-sm text-yellow-500 hover:text-yellow-400 transition">
               info@kinbo.com
             </p>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-sm">TOP CATEGORY</h3>
-            <ul className="space-y-2">
+            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-300">Top Category</h3>
+            <ul className="space-y-3">
               {topCategories.map((cat) => (
                 <li
                   key={cat}
-                  className="relative pl-3 text-gray-400 cursor-pointer text-sm transition hover:text-white hover:before:absolute hover:before:left-0 hover:before:top-0 hover:before:h-full hover:before:w-[2px] hover:before:bg-yellow-500"
+                  className="text-gray-400 cursor-pointer text-sm transition-all duration-300 hover:text-white hover:translate-x-1"
                 >
                   {cat}
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-yellow-500 cursor-pointer font-medium text-sm">
+            <p className="mt-4 text-yellow-500 cursor-pointer font-medium text-sm hover:text-yellow-400 transition">
               Browse All Product →
             </p>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-sm">QUICK LINKS</h3>
-            <ul className="space-y-2">
+            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-300">Quick Links</h3>
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li
                   key={link}
-                  className="relative pl-3 text-gray-400 cursor-pointer text-sm transition hover:text-white hover:before:absolute hover:before:left-0 hover:before:top-0 hover:before:h-full hover:before:w-[2px] hover:before:bg-yellow-500"
+                  className="text-gray-400 cursor-pointer text-sm transition-all duration-300 hover:text-white hover:translate-x-1"
                 >
                   {link}
                 </li>
@@ -99,9 +99,9 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3 text-sm">DOWNLOAD APP</h3>
+            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-300">Download App</h3>
             <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-3 bg-[#303639] px-4 py-2 rounded cursor-pointer min-w-[170px]">
+              <div className="flex items-center gap-3 bg-[#303639] px-4 py-3 rounded cursor-pointer hover:bg-[#3d4448] transition min-w-[170px] border border-transparent hover:border-gray-600">
                 <img
                   src={GooglePlay}
                   alt="Google Play"
@@ -113,7 +113,7 @@ const Footer = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 bg-[#303639] px-4 py-2 rounded cursor-pointer min-w-[170px]">
+              <div className="flex items-center gap-3 bg-[#303639] px-4 py-3 rounded cursor-pointer hover:bg-[#3d4448] transition min-w-[170px] border border-transparent hover:border-gray-600">
                 <img
                   src={AppStore}
                   alt="App Store"
@@ -128,12 +128,12 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3 text-sm">POPULAR TAG</h3>
-            <div className="grid grid-cols-2 gap-2">
+            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-300">Popular Tag</h3>
+            <div className="flex flex-wrap gap-2">
               {popularTags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-0.5 border border-gray-600 rounded-full text-[11px] text-center cursor-pointer hover:border-yellow-500 hover:text-yellow-500 transition"
+                  className="px-3 py-1.5 border border-gray-600 rounded-full text-[11px] text-center cursor-pointer transition-all duration-300 bg-transparent hover:bg-yellow-500 hover:text-black hover:border-yellow-500"
                 >
                   {tag}
                 </span>
@@ -142,8 +142,12 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-400 text-xs">
-          Kinbo eCommerce Template © 2021. Design by Templatecookie
+        <div className="mt-12 pt-6 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-gray-500 text-xs gap-4">
+          <p>Kinbo eCommerce Template © 2021. Design by Templatecookie</p>
+          <div className="flex gap-4">
+             <span className="hover:text-white cursor-pointer transition">Privacy Policy</span>
+             <span className="hover:text-white cursor-pointer transition">Terms & Conditions</span>
+          </div>
         </div>
       </div>
     </footer>

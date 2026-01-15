@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // 1. Import Link here
 import BigProductCard from "./BigProductCard";
 import SmallProductCard from "./SmallProductCards";
 import useFetch from "../hooks/useFetch";
@@ -46,29 +47,30 @@ function ProductCards() {
   if (loading || error || products.length < 9) return null;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-12">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-4">
-          <h2 className="text-[#191C1F] font-semibold text-[24px] leading-[32px]">
+    <section className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <h2 className="text-[#191C1F] font-semibold text-[20px] md:text-[24px] leading-[28px] md:leading-[32px]">
             Best Deals
           </h2>
 
-          <div className="flex items-center justify-center rounded px-3 w-[190px] h-[40px] bg-[#F3DE6D] text-black text-[14px] leading-[20px] font-normal">
+          <div className="flex items-center justify-center rounded px-3 h-[36px] bg-[#F3DE6D] text-black text-[13px] md:text-[14px] leading-[20px] font-normal w-fit">
             {`${timeLeft.days}d ${timeLeft.hours}h ${timeLeft.minutes}m ${timeLeft.seconds}s`}
           </div>
         </div>
 
-        <button className="text-blue-600 font-semibold hover:underline">
+        {/* 2. Replaced <button> with <Link to="/shop"> */}
+        <Link to="/shop" className="text-blue-600 font-semibold hover:underline text-sm md:text-base w-fit">
           Browse All Products →
-        </button>
+        </Link>
       </div>
 
-      <div className="flex gap-0">
-        <div className="flex-shrink-0">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <div className="w-full lg:w-[300px] xl:w-[340px] flex-shrink-0">
           <BigProductCard product={products[0]} />
         </div>
 
-        <div className="grid grid-cols-4 gap-0 flex-1">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 flex-1">
           {products.slice(1).map((product) => (
             <SmallProductCard key={product.id} product={product} />
           ))}

@@ -9,24 +9,27 @@ import SinglePage from "./pages/SinglePage";
 import Favourite from "./pages/Favourite";
 import { CartProvider } from "./context/CartContext";
 import { FavouriteProvider } from "./context/FavouriteContext";
+import AllProductsPage from "./pages/AllProductsPage";
 
 function App() {
   return (
     <FavouriteProvider>
-    <CartProvider>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/hero" element={<HeroSection />} />
-            <Route path="/ProductCards" element={<ProductCards />} />
-            <Route path="/single/:id" element={<SinglePage />} />
-            <Route path="/favourite" element={<Favourite />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </CartProvider>
+      <CartProvider>
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/hero" element={<HeroSection />} />
+              <Route path="/ProductCards" element={<ProductCards />} />
+              <Route path="/single/:id" element={<SinglePage />} />
+              <Route path="/favourite" element={<Favourite />} />
+              <Route path="/shop" element={<AllProductsPage />} />
+              
+            </Routes>
+          </Layout>
+        </Router>
+      </CartProvider>
     </FavouriteProvider>
   );
 }

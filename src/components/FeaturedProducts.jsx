@@ -44,13 +44,20 @@ function FeaturedProducts() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-12">
+      {/* Main Container: Flex col on mobile, Grid on desktop */}
       <div className="flex flex-col lg:grid lg:grid-cols-6 gap-6">
-        <div className="lg:col-span-2 rounded-lg overflow-hidden flex flex-col w-[320px] h-[650px] relative bg-gradient-to-b from-[#F3DE6D] to-[#E9CF4E]">
-          <div className="flex-1 flex flex-col items-center justify-center text-center px-6">
+        
+        {/* Left Side Banner */}
+        <div className="lg:col-span-2 rounded-lg overflow-hidden flex flex-col 
+          w-full h-auto 
+          lg:w-[320px] lg:h-[650px] 
+          relative bg-gradient-to-b from-[#F3DE6D] to-[#E9CF4E]">
+          
+          <div className="flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6">
             <span className="text-xs text-orange-600 font-semibold uppercase">
               Computer & Accessories
             </span>
-            <h3 className="text-3xl font-bold mt-2">32% Discount</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold mt-2">32% Discount</h3>
             <p className="text-sm text-gray-700 mt-2">
               For all electronics products
             </p>
@@ -62,19 +69,24 @@ function FeaturedProducts() {
               Shop Now
             </button>
           </div>
+          
           <div className="w-full flex items-center justify-center flex-shrink-0 mt-4">
             <img
               src={FeaturedImage}
               alt=""
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain max-h-[300px] lg:max-h-none"
             />
           </div>
         </div>
 
+        {/* Right Side Products */}
         <div className="lg:col-span-4 flex flex-col h-full">
-          <div className="flex items-center justify-between mb-6 py-2">
+          
+          {/* Header: Stack vertically on mobile, row on sm+ */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 py-2 gap-4">
             <h2 className="text-2xl font-semibold">Featured Products</h2>
-            <div className="flex items-center gap-4 text-sm">
+            
+            <div className="flex items-center gap-2 sm:gap-4 text-sm flex-wrap w-full sm:w-auto">
               {categories.slice(0, 5).map((cat) => (
                 <button
                   key={cat}
@@ -88,12 +100,13 @@ function FeaturedProducts() {
                   {cat.replace("-", " ")}
                 </button>
               ))}
-              <button className="text-orange-500 font-medium cursor-pointer">
+              <button className="text-orange-500 font-medium cursor-pointer whitespace-nowrap">
                 Browse All Products →
               </button>
             </div>
           </div>
 
+          {/* Product Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 h-full">
             {loading && <p>Loading...</p>}
             {error && <p>Error loading products</p>}
