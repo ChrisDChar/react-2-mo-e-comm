@@ -2,6 +2,8 @@ import React from "react";
 import Logo from "../assets/HomeImages/FooterLogo.png";
 import GooglePlay from "../assets/HomeImages/FooterPlayStore.png";
 import AppStore from "../assets/HomeImages/FooterAppStore.png";
+import { Link } from "react-router-dom";
+
 
 const Footer = () => {
   const topCategories = [
@@ -79,9 +81,9 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-yellow-500 cursor-pointer font-medium text-sm hover:text-yellow-400 transition">
-              Browse All Product →
-            </p>
+            <Link to="/shop" className="mt-4 text-yellow-500 cursor-pointer font-medium text-sm hover:text-yellow-400 transition">
+              Browse All Products →
+            </Link>
           </div>
 
           <div>

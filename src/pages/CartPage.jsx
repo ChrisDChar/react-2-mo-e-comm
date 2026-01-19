@@ -164,13 +164,12 @@ function CartPage() {
             </div>
           </div>
 
-          <Link
-            to="/checkout"
+          <button
             className="w-full bg-[#FA8232] text-white py-3.5 font-bold rounded-xl shadow-lg shadow-orange-500/30 hover:bg-orange-600 hover:shadow-orange-500/40 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 mt-6"
           >
             Proceed to Checkout
             <span>→</span>
-          </Link>
+          </button>
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">

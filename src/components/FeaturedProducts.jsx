@@ -100,13 +100,12 @@ function FeaturedProducts() {
                   {cat.replace("-", " ")}
                 </button>
               ))}
-              <button className="text-orange-500 font-medium cursor-pointer whitespace-nowrap">
+              <Link to="/shop" className="text-blue-600 font-semibold hover:underline text-sm md:text-base w-fit">
                 Browse All Products →
-              </button>
+              </Link>
             </div>
           </div>
 
-          {/* Product Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 h-full">
             {loading && <p>Loading...</p>}
             {error && <p>Error loading products</p>}
@@ -131,7 +130,7 @@ function FeaturedProducts() {
                   <img
                     src={product.thumbnail}
                     alt={product.title}
-                    className="w-full h-[160px] object-contain"
+                    className="w-full h-[160px] object-contain mt-4"
                   />
 
                   <div className="absolute top-2 left-2 right-2 bottom-[80px] bg-gray-300/30 backdrop-blur-sm flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">

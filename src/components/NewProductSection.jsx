@@ -62,9 +62,9 @@ const NewProductSection = () => {
                   {cat.replace("-", " ")}
                 </button>
               ))}
-              <button className="text-orange-500 font-medium cursor-pointer whitespace-nowrap">
+              <Link to="/shop" className="text-blue-600 font-semibold hover:underline text-sm md:text-base w-fit">
                 Browse All Products →
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -146,10 +146,8 @@ const NewProductSection = () => {
           </div>
         </div>
 
-        {/* Right Side: Banners */}
         <div className="lg:col-span-2 flex flex-col gap-4">
           
-          {/* Xiaomi Banner */}
           <div className="rounded-lg overflow-hidden flex flex-col 
             w-full h-auto 
             lg:w-[300px] lg:h-[350px] 
@@ -163,7 +161,6 @@ const NewProductSection = () => {
             <button className="mt-4 bg-orange-500 text-white font-semibold px-6 py-2 text-sm cursor-pointer w-full mx-auto">Shop Now</button>
           </div>
 
-          {/* Summer Sales Banner */}
           <div className="rounded-lg overflow-hidden flex flex-col 
             w-full h-auto 
             lg:w-[300px] lg:h-[210px] 

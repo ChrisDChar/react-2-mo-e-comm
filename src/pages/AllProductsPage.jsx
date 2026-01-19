@@ -15,7 +15,7 @@ const AllProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(2000);
-  const [minRating, setMinRating] = useState(0);
+  const [ratingSort, setRatingSort] = useState("high");
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 12;
@@ -27,7 +27,7 @@ const AllProductsPage = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory, minPrice, maxPrice, minRating]);
+  }, [selectedCategory, minPrice, maxPrice, ratingSort]);
 
   const products = data?.products || [];
 
@@ -47,13 +47,16 @@ const AllProductsPage = () => {
   }, [products]);
 
   const filtered = useMemo(() => {
-    return products.filter((product) => {
-      const categoryMatch = selectedCategory === "all" || product.category === selectedCategory;
-      const priceMatch = product.price >= minPrice && product.price <= maxPrice;
-      const ratingMatch = product.rating >= minRating;
-      return categoryMatch && priceMatch && ratingMatch;
-    });
-  }, [products, selectedCategory, minPrice, maxPrice, minRating]);
+    return products
+      .filter((product) => {
+        const categoryMatch = selectedCategory === "all" || product.category === selectedCategory;
+        const priceMatch = product.price >= minPrice && product.price <= maxPrice;
+        return categoryMatch && priceMatch;
+      })
+      .sort((a, b) =>
+        ratingSort === "high" ? b.rating - a.rating : a.rating - b.rating
+      );
+  }, [products, selectedCategory, minPrice, maxPrice, ratingSort]);
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
@@ -74,7 +77,7 @@ const AllProductsPage = () => {
     setSelectedCategory("all");
     setMinPrice(0);
     setMaxPrice(globalMaxPrice);
-    setMinRating(0);
+    setRatingSort("high");
     setCurrentPage(1);
   };
 
@@ -97,12 +100,11 @@ const AllProductsPage = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 py-12">
       <div className="flex flex-col lg:flex-row gap-8">
-        
         <aside className="w-full lg:w-64 flex-shrink-0">
           <div className="lg:sticky lg:top-4 space-y-8 bg-white p-6 rounded-lg border border-gray-100 shadow-sm">
             <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
               <h3 className="text-lg font-semibold">Filter By</h3>
-              <button 
+              <button
                 onClick={handleReset}
                 className="text-xs text-orange-500 font-semibold hover:underline cursor-pointer"
               >
@@ -149,6 +151,7 @@ const AllProductsPage = () => {
                   <input
                     type="number"
                     value={maxPrice}
+                    placeholder={globalMaxPrice === 36000 ? 0 : undefined}
                     onChange={(e) => setMaxPrice(Number(e.target.value))}
                     className="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-orange-500"
                   />
@@ -158,23 +161,14 @@ const AllProductsPage = () => {
 
             <div>
               <h3 className="text-lg font-semibold mb-4 pb-2 border-b border-gray-200">Rating</h3>
-              <div className="flex flex-col gap-2">
-                {[4, 3, 2, 1].map((rating) => (
-                  <button
-                    key={rating}
-                    onClick={() => setMinRating(rating === minRating ? 0 : rating)}
-                    className={`text-sm flex items-center gap-2 transition cursor-pointer ${
-                      minRating === rating ? "text-orange-500 font-bold" : "text-gray-600 hover:text-black"
-                    }`}
-                  >
-                    <span className="text-orange-400">
-                      {"★".repeat(rating)}
-                      {"☆".repeat(5 - rating)}
-                    </span>
-                    & Up
-                  </button>
-                ))}
-              </div>
+              <select
+                value={ratingSort}
+                onChange={(e) => setRatingSort(e.target.value)}
+                className="w-full border border-gray-300 rounded px-2 py-2 text-sm focus:outline-orange-500 cursor-pointer"
+              >
+                <option value="high">Highest First</option>
+                <option value="low">Lowest First</option>
+              </select>
             </div>
           </div>
         </aside>
@@ -182,7 +176,9 @@ const AllProductsPage = () => {
         <main className="flex-1">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold">All Products</h2>
-            <p className="text-sm text-gray-500">Showing {displayedProducts.length} of {filtered.length} results</p>
+            <p className="text-sm text-gray-500">
+              Showing {displayedProducts.length} of {filtered.length} results
+            </p>
           </div>
 
           {loading ? (
@@ -232,11 +228,7 @@ const AllProductsPage = () => {
                           }
                           className="w-7 h-7 bg-white rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-[#FA8232]"
                         >
-                          {isInCart ? (
-                            <BsFillCartDashFill size={14} />
-                          ) : (
-                            <FaCartPlus size={14} />
-                          )}
+                          {isInCart ? <BsFillCartDashFill size={14} /> : <FaCartPlus size={14} />}
                         </button>
 
                         <Link to={`/single/${product.id}`} className="w-7 h-7 cursor-pointer">
@@ -276,7 +268,7 @@ const AllProductsPage = () => {
                   <button
                     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
                   >
                     Prev
                   </button>
@@ -286,7 +278,7 @@ const AllProductsPage = () => {
                   <button
                     onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
                   >
                     Next
                   </button>

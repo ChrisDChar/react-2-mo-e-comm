@@ -59,7 +59,6 @@ function ProductCards() {
           </div>
         </div>
 
-        {/* 2. Replaced <button> with <Link to="/shop"> */}
         <Link to="/shop" className="text-blue-600 font-semibold hover:underline text-sm md:text-base w-fit">
           Browse All Products →
         </Link>

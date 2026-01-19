@@ -45,7 +45,7 @@ function SmallProductCard({ product }) {
       <img
         src={product.thumbnail}
         alt={product.title}
-        className="w-full h-[190px] object-contain"
+        className="w-full h-[160px] object-contain mt-4"
       />
 
       <div className="absolute top-2 left-2 right-2 bottom-[70px] bg-gray-300/30 backdrop-blur-sm flex items-center justify-center gap-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded">

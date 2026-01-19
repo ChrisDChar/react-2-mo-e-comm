@@ -51,7 +51,6 @@ function Favourite() {
         
         {!loading && favouriteProducts.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 text-gray-400">
-            <span className="text-6xl mb-4 opacity-50">🛒</span>
             <p className="text-lg font-medium">Your wishlist is empty.</p>
             <Link to="/shop" className="mt-4 text-[#FA8232] hover:underline">Continue Shopping</Link>
           </div>
